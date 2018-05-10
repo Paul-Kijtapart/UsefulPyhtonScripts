@@ -61,8 +61,11 @@ class Search:
             # if left side is duplicate
             else:
 
-                # go right
-                left = mid_index + 1
+                if target < current_num:
+                    return -1
+                else:
+                    # go right
+                    left = mid_index + 1
 
         # if NOT found
         return -1
