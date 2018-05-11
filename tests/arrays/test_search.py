@@ -68,3 +68,13 @@ class TestSearch(TestCase):
 
         right_out_target = 100
         self.assertEqual(Search.search_rotated_array(left_duplicate_nums, right_out_target), -1)
+
+    def test_contain_duplicate_ii(self):
+        # Input: [1,2,3,1], k = 3 -> True
+        self.assertTrue(Search.contain_duplicate_ii([1, 2, 3, 1], 3))
+
+        # Input: [1,0,1,1], k = 1 -> True
+        self.assertTrue(Search.contain_duplicate_ii([1, 0, 1, 1], 1))
+
+        # Input: [1,2,1], k = 0 -> False
+        self.assertFalse(Search.contain_duplicate_ii([1, 2, 1], 0))

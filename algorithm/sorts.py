@@ -1,7 +1,7 @@
 class Sorts:
 
     @staticmethod
-    def sort_anagram(words):
+    def sort_anagram(words:list) -> None:
         """
 
         Args:

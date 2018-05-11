@@ -1,7 +1,7 @@
 class Search:
 
     @staticmethod
-    def search_rotated_array(nums, target):
+    def search_rotated_array(nums: list, target: int) -> int:
         """
 
         Args:
@@ -69,3 +69,43 @@ class Search:
 
         # if NOT found
         return -1
+
+    @staticmethod
+    def contain_duplicate_ii(nums: list, k: int) -> bool:
+        """Check if the given num has any duplicate within k distance
+
+        Args:
+            nums(list.<int>): list of numbers
+            k(int): distance to search for duplicate from each position
+
+        Returns:
+            bool:   True if found duplicate within k
+                    otherwise, False.
+
+        """
+        if len(nums) == 0 or k < 1:
+            return False
+
+        # Map to keep track of last-seen position of each number in nums
+        num_prev_position = dict()
+
+        for i, num in enumerate(nums):
+
+            if num in num_prev_position:
+
+                # last-seen position
+                prev_position = num_prev_position[num]
+
+                # if we found duplicate within k distance
+                if i - prev_position <= k:
+                    return True
+
+                # if distance > k, update prev_position
+                num_prev_position[num] = i
+
+            else:
+
+                num_prev_position[num] = i
+
+        # if not found any duplicate
+        return False
