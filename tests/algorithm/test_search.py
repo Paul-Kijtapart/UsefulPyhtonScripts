@@ -1,5 +1,5 @@
 from unittest import TestCase
-from algorithm.arrays.search import Search
+from algorithm.search import Search
 
 
 class TestSearch(TestCase):
