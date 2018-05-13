@@ -85,3 +85,33 @@ class Arrays:
             res += vals
 
         return res
+
+    @staticmethod
+    def find_duplicates(nums):
+        """
+        Given an array of integers, 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+        Find all the elements that appear twice in this array.
+        Could you do it without extra space and in O(n) runtime?
+
+        Args:
+            nums(List[int]):
+
+        Returns:
+            List[int] - list of duplicates found in the nums
+
+        """
+
+        duplicates = []
+
+        # loop through nums to find all duplicates
+
+        for num in nums:
+
+            mark_index = abs(num) - 1
+
+            if nums[mark_index] < 0:
+                duplicates.append(abs(num))
+            else:
+                nums[mark_index] *= -1
+
+        return duplicates

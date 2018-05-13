@@ -17,3 +17,10 @@ class TestArrays(TestCase):
 
         # nums1 =[3,1,2], nums2 = [1,3], return [1,3]
         self.assertEqual(len(Arrays.intersection_two_arrays_ii_with_space(nums1=[3, 1, 2], nums2=[1, 3])), 2)
+
+    def test_find_duplicates(self):
+        # [4,3,2,7,8,2,3,1] => [2,3]
+        self.assertListEqual(Arrays.find_duplicates([4, 3, 2, 7, 8, 2, 3, 1]), [2, 3])
+
+        # [2,2] => [2]
+        self.assertListEqual(Arrays.find_duplicates([2, 2]), [2])
