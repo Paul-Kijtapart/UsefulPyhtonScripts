@@ -103,6 +103,7 @@ class Arrays:
 
         duplicates = []
 
+
         # loop through nums to find all duplicates
 
         for num in nums:
