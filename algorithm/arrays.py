@@ -103,7 +103,6 @@ class Arrays:
 
         duplicates = []
 
-
         # loop through nums to find all duplicates
 
         for num in nums:
@@ -116,3 +115,43 @@ class Arrays:
                 nums[mark_index] *= -1
 
         return duplicates
+
+    @staticmethod
+    def product_except_self(nums: list) -> list:
+        """
+        Given an array nums of n integers where n > 1,
+        return an array output such that output[i] is equal to the product of all the elements of nums except nums[i].
+
+        Args:
+            nums(List[int]): list of number with n size, n > 1
+
+        Returns:
+            List[int]
+
+        """
+
+        # build product of left except self
+        product_left = list(nums)
+
+        # set first one as = 1
+        product_left[0] = 1
+
+        for i in range(1, len(nums)):
+            product_left[i] = product_left[i - 1] * nums[i - 1]
+
+        # build product of right except self
+        product_right = list(nums)
+
+        # set last one as = 1
+        product_right[len(nums) - 1] = 1
+
+        for i in reversed(range(len(nums) - 1)):
+            product_right[i] = product_right[i + 1] * nums[i + 1]
+
+        # build product of the two above
+        res = []
+
+        for i in range(len(nums)):
+            res.append(product_right[i] * product_left[i])
+
+        return res

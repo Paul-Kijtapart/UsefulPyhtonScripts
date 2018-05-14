@@ -24,3 +24,16 @@ class TestArrays(TestCase):
 
         # [2,2] => [2]
         self.assertListEqual(Arrays.find_duplicates([2, 2]), [2])
+
+    def test_product_except_self(self):
+        # Input:  [1,2,3,4] => Output: [24,12,8,6]
+        self.assertListEqual(Arrays.product_except_self([1, 2, 3, 4]), [24, 12, 8, 6])
+
+        # [1,2] => [2,1]
+        self.assertListEqual(Arrays.product_except_self([1, 2]), [2, 1])
+
+        # [1,2,3] => [6,3,2]
+        self.assertListEqual(Arrays.product_except_self([1, 2, 3]), [6, 3, 2])
+
+        # [2,2] => [2,2]
+        self.assertListEqual(Arrays.product_except_self([2, 2]), [2, 2])
