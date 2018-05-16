@@ -70,3 +70,30 @@ class Sorts:
             colors[j + 1] = base_color
 
             i += 1
+
+    @staticmethod
+    def swap(arr, i, j):
+        temp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = temp
+
+    @staticmethod
+    def sort_colors_optimized(colors):
+
+        write_zero_index = 0
+        write_second_index = len(colors) - 1
+
+        i = 0
+        while i < write_second_index:
+
+            # try to sweep 2 to the right
+            while colors[i] == 2 and i < write_second_index:
+                Sorts.swap(colors, i, write_second_index)
+                write_second_index -= 1
+
+            # try to sweep 0 to the left
+            while colors[i] == 0 and i > write_zero_index:
+                Sorts.swap(colors, i, write_zero_index)
+                write_zero_index += 1
+
+            i += 1
