@@ -155,3 +155,51 @@ class Arrays:
             res.append(product_right[i] * product_left[i])
 
         return res
+
+    def combination_sum_helper(self, candidates, target, index, comb, arrays):
+        # base case
+        if index >= len(candidates):
+            return True  # done exit
+
+        num = candidates[index]
+
+        # Visit this node
+
+        target -= num
+
+        # update comb first
+        if target < 0:
+            comb.pop()
+            return True
+        else:
+            comb.append(num)
+
+        # update arrays if possible
+        if target == 0:
+            arrays.append(comb)
+            return True
+
+        for i in range(len(candidates)):
+            should_exit = self.combination_sum_helper(candidates=candidates,
+                                                      target=target,
+                                                      index=i,
+                                                      comb=comb,
+                                                      arrays=arrays)
+
+            if should_exit:
+                break
+
+        # take the num out
+        comb.pop()
+
+    def combination_sum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        for index in range(len(candidates)):
+            self.combination_sum_helper(candidates, target, index, [], res)
+
+        return res

@@ -37,3 +37,15 @@ class TestArrays(TestCase):
 
         # [2,2] => [2,2]
         self.assertListEqual(Arrays.product_except_self([2, 2]), [2, 2])
+
+    def test_combination_sum(self):
+        """
+        Input: candidates = [2,3,6,7], target = 7,
+        A solution set is:
+        [
+          [7],
+          [2,2,3]
+        ]
+        """
+        a = Arrays()
+        self.assertListEqual(a.combination_sum([2, 3, 6, 7], 7), [[7], [2, 2, 3]])
