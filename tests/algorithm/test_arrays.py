@@ -48,4 +48,5 @@ class TestArrays(TestCase):
         ]
         """
         a = Arrays()
-        self.assertListEqual(a.combination_sum([2, 3, 6, 7], 7), [[7], [2, 2, 3]])
+        unique_combs = a.combination_sum([2, 3, 6, 7], 7)
+        self.assertListEqual(unique_combs, [[2, 2, 3], [7]])

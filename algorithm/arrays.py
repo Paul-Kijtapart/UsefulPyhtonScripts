@@ -169,17 +169,17 @@ class Arrays:
 
         # update comb first
         if target < 0:
-            comb.pop()
             return True
         else:
             comb.append(num)
 
         # update arrays if possible
         if target == 0:
-            arrays.append(comb)
+            arrays.append(list(comb))
+            comb.pop()
             return True
 
-        for i in range(len(candidates)):
+        for i in range(index, len(candidates)):
             should_exit = self.combination_sum_helper(candidates=candidates,
                                                       target=target,
                                                       index=i,
@@ -198,8 +198,26 @@ class Arrays:
         :type target: int
         :rtype: List[List[int]]
         """
-        res = []
-        for index in range(len(candidates)):
-            self.combination_sum_helper(candidates, target, index, [], res)
 
-        return res
+        candidates.sort()
+
+        all_combs = []
+
+        for index in range(len(candidates)):
+            self.combination_sum_helper(candidates, target, index, [], all_combs)
+
+        return all_combs
+
+    @staticmethod
+    def get_unique_combinations(combs):
+
+        visited_counter = set()
+
+        for comb in combs:
+
+            key = Counter(comb)
+
+            if key not in visited_counter:
+                visited_counter[key] = comb
+
+        return list(visited_counter)
