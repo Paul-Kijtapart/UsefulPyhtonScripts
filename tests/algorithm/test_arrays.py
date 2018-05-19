@@ -50,3 +50,19 @@ class TestArrays(TestCase):
         a = Arrays()
         unique_combs = a.combination_sum([2, 3, 6, 7], 7)
         self.assertListEqual(unique_combs, [[2, 2, 3], [7]])
+
+    def test_get_longest_unique_substr(self):
+        # Given "abcabcbb", the answer is "abc", which the length is 3.
+        self.assertEqual(Arrays.get_longest_unique_substr_down("abcabcbb"), 3)
+
+        # Given "bbbbb", the answer is "b", with the length of 1.
+        self.assertEqual(Arrays.get_longest_unique_substr_down("bbbbb"), 1)
+
+        # Given "pwwkew", the answer is "wke", with the length of 3
+        self.assertEqual(Arrays.get_longest_unique_substr_down("pwwkew"), 3)
+
+        # "c" => 0
+        self.assertEqual(Arrays.get_longest_unique_substr_down("c"), 1)
+
+        # "au" => 2
+        self.assertEqual(Arrays.get_longest_unique_substr_down("au"), 2)

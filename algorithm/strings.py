@@ -48,3 +48,27 @@ class Strings:
             res = res ^ ord(c)
 
         return chr(res)
+
+    @staticmethod
+    def is_unique(str):
+        """
+        Return True if the given str has no duplicated char. Otherwise, return False.
+
+        Args:
+            str(str):
+
+        Returns:
+            (boolean)
+
+        """
+
+        appeared_char = set()
+
+        for c in str:
+
+            if c in appeared_char:
+                return False
+            else:
+                appeared_char.add(c)
+
+        return True

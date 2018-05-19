@@ -1,4 +1,5 @@
 from collections import Counter
+from algorithm.strings import Strings
 
 
 class Arrays:
@@ -221,3 +222,20 @@ class Arrays:
                 visited_counter[key] = comb
 
         return list(visited_counter)
+
+    @staticmethod
+    def get_longest_unique_substr_down(str):
+
+        if len(str) == 0:
+            return 0
+
+        for window_size in reversed(range(1, len(str) + 1)):
+
+            for i in range(window_size - 1, len(str)):
+
+                current_window = str[i - window_size + 1: i + 1]
+
+                if Strings.is_unique(current_window):
+                    return len(current_window)
+
+        return 1  # there is at least one unique char
