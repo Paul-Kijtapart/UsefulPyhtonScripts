@@ -12,13 +12,17 @@ class TestStrings(TestCase):
         self.assertEqual(Strings.find_the_difference_pro('abcd', 'abcde'), 'e')
 
     def test_is_isomorphic(self):
-        # Input: s = "egg", t = "add"
+        # Input: s = "egg", t = "add" => True
+        self.assertTrue(Strings.is_isomorphic("egg", "add"))
 
-        # Input: s = "foo", t = "bar"
+        # Input: s = "foo", t = "bar" => False
+        self.assertFalse(Strings.is_isomorphic("foo", "bar"))
 
-        # Input: s = "paper", t = "title"
+        # Input: s = "paper", t = "title" => True
+        self.assertTrue(Strings.is_isomorphic("paper", "title"))
 
         # Input: s = "ab", t = "aa" => False
+        self.assertFalse(Strings.is_isomorphic("ab", "aa"))
 
         # Input: s = "aa", t = "ab" => False
-        pass
+        self.assertFalse(Strings.is_isomorphic("aa", "ab"))
