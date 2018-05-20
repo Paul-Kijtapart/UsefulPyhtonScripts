@@ -72,3 +72,41 @@ class Strings:
                 appeared_char.add(c)
 
         return True
+
+    @staticmethod
+    def is_isomorphic(s, t):
+        """
+        Two strings are isomorphic if the characters in s can be replaced to get t.
+        All occurrences of a character must be replaced with another character
+        while preserving the order of characters.
+        No two characters may map to the same character but a character may map to itself.
+
+        Args:
+            s(str):
+            t(str):
+
+        Returns:
+            (boolean)
+
+        """
+        if len(s) != len(t):
+            return False
+
+        map = {}
+
+        for i in range(len(s)):
+
+            cs = s[i]
+            ct = t[i]
+
+            if cs in map:
+                if map[cs] != ct:
+                    return False
+            else:
+
+                if ct in map.values():
+                    return False
+                else:
+                    map[cs] = ct
+
+        return True

@@ -53,7 +53,7 @@ class TestArrays(TestCase):
 
     def test_get_longest_unique_substr(self):
         # Given "abcabcbb", the answer is "abc", which the length is 3.
-        self.assertEqual(Arrays.get_longest_unique_substr_down("abcabcbb"), 3)
+        self.assertEqual(Arrays.get_longest_unique_substr_down('abcabcbb'), 3)
 
         # Given "bbbbb", the answer is "b", with the length of 1.
         self.assertEqual(Arrays.get_longest_unique_substr_down("bbbbb"), 1)

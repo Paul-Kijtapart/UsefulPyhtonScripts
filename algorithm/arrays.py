@@ -224,7 +224,7 @@ class Arrays:
         return list(visited_counter)
 
     @staticmethod
-    def get_longest_unique_substr_down(str):
+    def get_longest_unique_substr_down(str: str) -> int:
 
         if len(str) == 0:
             return 0
