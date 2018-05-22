@@ -33,7 +33,18 @@ class LinkedList:
         self.front = None
         self.last = None
 
-    def size(self):
+    def __str__(self):
+        res = ""
+
+        runner = self.front
+
+        while runner is not None:
+            res += runner.val + '->'
+            runner = runner.next
+
+        return res
+
+    def size(self) -> int:
         """
         Return the count of nodes in this linked list
 
@@ -51,7 +62,7 @@ class LinkedList:
 
         return res
 
-    def unshift(self, val):
+    def unshift(self, val) -> Node:
         """
         Add a new node with the given val to the linked list
 
@@ -59,7 +70,7 @@ class LinkedList:
             val:
 
         Returns:
-
+            Node - the newly added node
         """
 
         new_node = Node(val)
@@ -71,7 +82,9 @@ class LinkedList:
             new_node.next = self.front
             self.front = new_node
 
-    def add(self, val):
+        return new_node
+
+    def add(self, val) -> Node:
         """
         Added a new node with the given val to the END of this linked list
 
@@ -92,7 +105,7 @@ class LinkedList:
 
         return new_node
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         """
         Return True if this linked list has no node. Otherwise, return False
 
@@ -101,7 +114,7 @@ class LinkedList:
         """
         return self.front is None
 
-    def remove(self, val):
+    def remove(self, val) -> None:
         """
         Remove the given val from this linked list
 
@@ -140,17 +153,6 @@ class LinkedList:
 
             # update last pointer
             self.last = prev
-
-    def __str__(self):
-        res = ""
-
-        runner = self.front
-
-        while runner is not None:
-            res += runner.val + '->'
-            runner = runner.next
-
-        return res
 
     def get(self, val):
         """
@@ -214,3 +216,53 @@ class LinkedList:
             print("{} -> ".format(runner.val))
 
             runner = runner.next
+
+    def get_kth_to_last(self, k: int) -> Node:
+        """
+        Return the Kth node from last node
+
+        Args:
+            k(int):
+
+        Returns:
+            Node
+
+        Throws:
+            LinkedListException - if this linked list is empty
+        """
+        if k > self.size():
+            raise LinkedListException("the given k is higher than size of this linked list")
+
+        # move one pointer by k
+        runner = self.front
+        for i in range(k):
+            runner = runner.next
+
+        # point result point to front
+        res = self.front
+
+        # move both pointers by one until runner reaches the end
+        while runner.next is not None:
+            res = res.next
+            runner = runner.next
+
+        return res
+
+    @staticmethod
+    def remove_middle_node(mid_pointer: Node):
+        """
+        Pre-condition: the given mid_pointer is not the first Or Last node
+        Remove the given node from its linked list
+
+        Args:
+            mid_pointer(Node):
+
+        Returns:
+
+        """
+
+        # replace val of mid_pointer with its next val
+        mid_pointer.val = mid_pointer.next.val
+
+        # update pointers according
+        mid_pointer.next = mid_pointer.next.next

@@ -55,3 +55,11 @@ class TestLinkedList(TestCase):
     def test_get(self):
         # should return the Node if given existing val
         self.assertIsNotNone(self.letter_linked_list.get('a'))
+
+    def test_get_kth_to_last(self):
+        # k = 0 => last node
+        self.assertEqual(self.letter_linked_list.get_kth_to_last(0), self.letter_linked_list.end())
+
+        # k = N -1 -> first node
+        current_size = self.letter_linked_list.size()
+        self.assertEqual(self.letter_linked_list.get_kth_to_last(current_size - 1), self.letter_linked_list.first())
