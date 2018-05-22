@@ -66,3 +66,10 @@ class TestArrays(TestCase):
 
         # "au" => 2
         self.assertEqual(Arrays.get_longest_unique_substr_down("au"), 2)
+
+    def test_find_duplicate_num(self):
+        # Input: [1,3,4,2,2] => Output: 2
+        self.assertEqual(Arrays.find_duplicate_num([1, 3, 4, 2, 2]), 2)
+
+        # Input: [3,1,3,4,2] => Output: 3
+        self.assertEqual(Arrays.find_duplicate_num([3, 1, 3, 4, 2]), 3)

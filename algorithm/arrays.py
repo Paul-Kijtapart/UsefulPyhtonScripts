@@ -239,3 +239,39 @@ class Arrays:
                     return len(current_window)
 
         return 1  # there is at least one unique char
+
+    @staticmethod
+    def find_duplicate_num(nums: list) -> int:
+        """
+        Given an array nums containing n + 1 integers
+        where each integer is between 1 and n (inclusive),
+        prove that at least one duplicate number must exist.
+        Assume that there is only one duplicate number, find the duplicate one.
+
+        Args:
+            nums(list):
+
+        Returns:
+            int - duplicate number. otherwise, -1
+        """
+
+        for i in range(len(nums)):
+
+            marked_index = abs(nums[i]) - 1
+
+            target = nums[marked_index]
+
+            # if this is already marked
+            if target < 0:
+
+                # found duplicate
+                return abs(nums[i])
+
+            # if this is Not marked
+            else:
+
+                # mark it
+                nums[marked_index] *= -1
+
+            # if there is no duplicate
+        return -1
