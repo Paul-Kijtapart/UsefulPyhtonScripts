@@ -197,3 +197,20 @@ class LinkedList:
             raise EmptyLinkedListException
 
         return self.last
+
+    def print_front_to_back(self):
+        """
+        Print val of each node from Front to Back of this linked list
+
+        Returns:
+
+        """
+        if self.is_empty():
+            print("Empty linked list")
+
+        runner = self.front
+
+        while runner is not None:
+            print("{} -> ".format(runner.val))
+
+            runner = runner.next
