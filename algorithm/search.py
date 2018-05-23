@@ -1,3 +1,6 @@
+import math
+
+
 class Search:
 
     @staticmethod
@@ -109,3 +112,78 @@ class Search:
 
         # if not found any duplicate
         return False
+
+    @staticmethod
+    def search_range(nums: list, target: int) -> list:
+        """34
+        Given an array of integers nums sorted in ascending order,
+        find the starting and ending position of a given target value.
+        Your algorithm's runtime complexity must be in the order of O(log n).
+        If the target is not found in the array, return [-1, -1].
+
+        Args:
+            nums(list[int]):
+            target(int):
+
+        Returns:
+            list[int]
+        """
+        if len(nums) == 0:
+            return [-1, -1]
+
+        rightmost_index = Search.find_index_rightmost(nums, target)
+        leftmost_index = Search.find_index_leftmost(nums, target)
+
+        return [leftmost_index, rightmost_index]
+
+    @staticmethod
+    def find_index_leftmost(nums, target):
+
+        left = 0
+        right = len(nums) - 1
+
+        while (left < right):
+
+            mid = math.floor(left + (right - left) / 2)
+
+            current_num = nums[mid]
+
+            if current_num == target:
+                right = mid
+
+            elif current_num < target:
+                # go right
+                left = mid + 1
+
+            else:
+                # go left
+                right = mid - 1
+
+        return -1 if nums[left] != target else left
+
+    @staticmethod
+    def find_index_rightmost(nums, target):
+
+        left = 0
+        right = len(nums) - 1
+
+        while (left < right):
+
+            mid = math.ceil(left + (right - left) / 2)
+
+            current_num = nums[mid]
+
+            # the rightmost target may be this position or on the right
+            if current_num == target:
+                # so we move right
+                left = mid
+            elif current_num < target:
+                # rightmost is definitely on the right and not this position
+                # go right
+                left = mid + 1
+            else:
+                # rightmost is definitely on the Left and not this position
+                # go left
+                right = mid - 1
+
+        return -1 if nums[right] != target else right

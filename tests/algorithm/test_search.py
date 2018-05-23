@@ -78,3 +78,20 @@ class TestSearch(TestCase):
 
         # Input: [1,2,1], k = 0 -> False
         self.assertFalse(Search.contain_duplicate_ii([1, 2, 1], 0))
+
+    def test_search_range(self):
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 8), [3, 4])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 5), [0, 0])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 6), [-1, -1])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 9), [-1, -1])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 10), [5, 5])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 13), [-1, -1])
+
+        self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 4), [-1, -1])
+
+        self.assertListEqual(Search.search_range([], 0), [-1, -1])
