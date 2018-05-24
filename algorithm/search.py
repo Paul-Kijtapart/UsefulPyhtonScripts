@@ -187,3 +187,23 @@ class Search:
                 right = mid - 1
 
         return -1 if nums[right] != target else right
+
+    @staticmethod
+    def singleNumber(nums: list) -> int:
+        """
+        Given a non-empty array of integers, every element appears twice except for one.
+        Find that single one.
+
+        Args:
+            nums(list):
+
+        Returns:
+            int
+        """
+
+        res = 0
+
+        for num in nums:
+            res ^= num
+
+        return res
