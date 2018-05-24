@@ -275,3 +275,20 @@ class Arrays:
 
             # if there is no duplicate
         return -1
+
+    @staticmethod
+    def swap(nums: list, start: int, end: int):
+        """
+        Swap the element at start and end of the given nums
+
+        Args:
+            nums(list):
+            start(int):
+            end(int):
+
+        Returns:
+
+        """
+        temp = nums[start]
+        nums[start] = nums[end]
+        nums[end] = temp

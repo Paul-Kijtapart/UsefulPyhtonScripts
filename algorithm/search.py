@@ -1,5 +1,8 @@
 import math
 
+# apps
+from algorithm.arrays import Arrays
+
 
 class Search:
 
@@ -207,3 +210,47 @@ class Search:
             res ^= num
 
         return res
+
+    @staticmethod
+    def find_k_largest_element_in_array(nums: list, k: int) -> int:
+        start = 0
+        end = len(nums) - 1
+        k_index = len(nums) - k  # kth largest = n-kth smallest
+
+        while start < end:
+            pivot_index = Search.partition(nums, start, end)
+
+            if pivot_index == k_index:
+                return nums[pivot_index]
+            elif pivot_index > k_index:
+                # go left
+                end = pivot_index - 1
+            else:
+                # go right
+                start = pivot_index + 1
+
+        return nums[start]
+
+    @staticmethod
+    def partition(nums, start, end):
+
+        pivot = nums[end]
+
+        wall = start - 1  # separate Left (values <= pivot) and Right (values > pivot)
+
+        # update nums based on selected pivot
+        for i in range(start, end):
+            if nums[i] <= pivot:
+                # need to move to Left side
+
+                # update write index
+                wall += 1
+
+                # move vale < pivot to the left side
+                Arrays.swap(nums, wall, i)
+
+        # update wall
+        if (nums[wall + 1] > nums[end]):
+            Arrays.swap(nums, wall + 1, end)
+
+        return wall + 1

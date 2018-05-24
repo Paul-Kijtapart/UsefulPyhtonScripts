@@ -95,3 +95,10 @@ class TestSearch(TestCase):
         self.assertListEqual(Search.search_range([5, 7, 7, 8, 8, 10], 4), [-1, -1])
 
         self.assertListEqual(Search.search_range([], 0), [-1, -1])
+
+    def test_find_k_largest_element_in_array(self):
+        self.assertEqual(Search.find_k_largest_element_in_array([3, 2, 1, 5, 6, 4], 2), 5)
+        self.assertEqual(Search.find_k_largest_element_in_array([3, 1, 2, 4], 2), 3)
+        self.assertEqual(Search.find_k_largest_element_in_array([3, 2, 3, 1, 2, 4, 5, 5, 6], 4), 4)
+        self.assertEqual(Search.find_k_largest_element_in_array([3], 1), 3)
+        self.assertEqual(Search.find_k_largest_element_in_array([3, 2, 1], 1), 3)
