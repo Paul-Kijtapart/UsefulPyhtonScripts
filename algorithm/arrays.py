@@ -292,3 +292,28 @@ class Arrays:
         temp = nums[start]
         nums[start] = nums[end]
         nums[end] = temp
+
+    def climb_stairs(self, n):
+        """
+        You are climbing a stair case. It takes n steps to reach to the top. (70)
+        Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+        :type n: int
+        :rtype: int
+        """
+
+        return self.climb_stairs_helper(n, {})
+
+    def climb_stairs_helper(self, n, appeared):
+        if n == 0:
+            return 1
+        elif n < 0:
+            return 0
+
+        if n in appeared:
+            return appeared[n]
+
+        sum = self.climb_stairs_helper(n - 1, appeared) + self.climb_stairs_helper(n - 2, appeared)
+        appeared[n] = sum
+
+        return sum
