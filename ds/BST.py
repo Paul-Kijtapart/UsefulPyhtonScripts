@@ -5,6 +5,12 @@ class Node:
         self.right = None
         self.val = val
 
+    def __repr__(self):
+        return str(self.val)
+
+    def __str__(self):
+        return str(self.val)
+
 
 class BST:
 
@@ -19,8 +25,34 @@ class BST:
         pass
 
     def get(self, val) -> Node:
-        """Return node with the given val"""
-        pass
+        """
+        Return node with the given val
+
+        Args:
+            val:
+
+        Returns:
+            Node|None: return the node with the given val in this tree. Otherwise, return None
+        """
+
+        return self._get_helper(self.root, val)
+
+    def _get_helper(self, root: Node, val):
+        """Search for the given val from the given tree"""
+
+        if root is None:
+            return None
+
+        if root.val == val:
+            return root
+
+        elif root.val < val:
+            # go right
+            return self._get_helper(root.right, val)
+
+        else:
+            # go left
+            return self._get_helper(root.left, val)
 
     def is_empty(self):
         """Check if this BST is empty"""

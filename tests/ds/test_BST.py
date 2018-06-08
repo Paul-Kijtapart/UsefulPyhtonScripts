@@ -29,7 +29,20 @@ class TestBST(TestCase):
         self.fail()
 
     def test_get(self):
-        self.fail()
+        # When
+        self.empty_tree.add(2)
+        self.empty_tree.add(3)
+        self.empty_tree.add(1)
+
+        # then
+
+        # there should exists a node for each added val
+        self.assertIsNotNone(self.empty_tree.get(2))
+        self.assertIsNotNone(self.empty_tree.get(3))
+        self.assertIsNotNone(self.empty_tree.get(1))
+
+        # get value not in the tree should return None
+        self.assertIsNone(self.empty_tree.get(5))
 
     def test_is_empty(self):
         self.fail()
