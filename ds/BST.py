@@ -37,6 +37,33 @@ class BST:
 
         return self._get_helper(self.root, val)
 
+    def get_depth(self):
+        """
+        Return the Depth of this tree
+
+        Returns:
+            int: the depth of this tree
+        """
+        return self._get_depth_helper(self.root)
+
+    def _get_depth_helper(self, root: Node) -> int:
+        """
+        Return the depth of the given tree
+
+        Args:
+            root(Node): root of the given tree
+
+        Returns:
+            int
+        """
+        if root is None:
+            return 0
+
+        left_depth = self._get_depth_helper(root.left)
+        right_depth = self._get_depth_helper(root.right)
+
+        return max(left_depth, right_depth) + 1
+
     def _get_helper(self, root: Node, val):
         """Search for the given val from the given tree"""
 
@@ -56,7 +83,7 @@ class BST:
 
     def is_empty(self):
         """Check if this BST is empty"""
-        pass
+        return self.root is None
 
     def size(self):
         """Return the size of this BST"""

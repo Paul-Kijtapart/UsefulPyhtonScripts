@@ -8,6 +8,28 @@ class TestBST(TestCase):
     def setUp(self):
         self.empty_tree = BST()
 
+        self.skewed_right_tree = BST()
+        self.skewed_right_tree.add(2)
+        self.skewed_right_tree.add(3)
+        self.skewed_right_tree.add(4)
+        self.skewed_right_tree.add(5)
+
+        self.skewed_left_tree = BST()
+        self.skewed_left_tree.add(5)
+        self.skewed_left_tree.add(4)
+        self.skewed_left_tree.add(3)
+        self.skewed_left_tree.add(2)
+        self.skewed_left_tree.add(1)
+
+        self.balanced_tree = BST()
+        self.balanced_tree.add(5)
+        self.balanced_tree.add(3)
+        self.balanced_tree.add(10)
+        self.balanced_tree.add(1)
+        self.balanced_tree.add(4)
+        self.balanced_tree.add(8)
+        self.balanced_tree.add(12)
+
     def test_add(self):
         # Given
         before_node_count = self.empty_tree.size()
@@ -26,7 +48,7 @@ class TestBST(TestCase):
         self.assertEqual(self.empty_tree.size(), before_node_count + 3)
 
     def test_remove(self):
-        self.fail()
+        pass
 
     def test_get(self):
         # When
@@ -45,13 +67,9 @@ class TestBST(TestCase):
         self.assertIsNone(self.empty_tree.get(5))
 
     def test_is_empty(self):
-        self.fail()
+        self.assertTrue(self.empty_tree.is_empty())
 
-    def test_size(self):
-        self.fail()
-
-    def test_count_node(self):
-        self.fail()
-
-    def test_add_helper(self):
-        self.fail()
+    def test_get_depth(self):
+        self.assertEqual(self.skewed_left_tree.get_depth(), 5)
+        self.assertEqual(self.skewed_right_tree.get_depth(), 4)
+        self.assertEqual(self.balanced_tree.get_depth(), 3)
