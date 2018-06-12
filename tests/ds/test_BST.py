@@ -48,7 +48,25 @@ class TestBST(TestCase):
         self.assertEqual(self.empty_tree.size(), before_node_count + 3)
 
     def test_remove(self):
-        pass
+        # Given
+        before_node_count = self.balanced_tree.size()
+        self.assertIsNotNone(self.balanced_tree.get(1))
+        self.assertIsNotNone(self.balanced_tree.get(5))
+        self.assertIsNotNone(self.balanced_tree.get(12))
+
+        # when
+        self.balanced_tree.remove(1)
+        self.balanced_tree.remove(5)
+        self.balanced_tree.remove(12)
+
+        # delete non-existent value
+        self.balanced_tree.get(999)
+
+        # then
+        self.assertIsNone(self.balanced_tree.get(1))
+        self.assertIsNone(self.balanced_tree.get(5))
+        self.assertIsNone(self.balanced_tree.get(12))
+        self.assertEqual(self.balanced_tree.size(), before_node_count - 3)
 
     def test_get(self):
         # When

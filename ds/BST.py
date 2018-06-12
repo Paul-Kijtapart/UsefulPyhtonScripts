@@ -21,8 +21,73 @@ class BST:
         self.root = self._add_helper(val, self.root)
 
     def remove(self, val) -> Node:
-        """Remove node with given val"""
-        pass
+        """
+        Remove node with given val
+
+        Args:
+            val:
+
+        Returns:
+            Node: the node that gets deleted
+        """
+
+        self.root = self._remove_helper(val, self.root)
+
+    def _remove_helper(self, val, root):
+
+        if root is None:
+            return None
+
+        elif root.val < val:
+            # go Right
+            root.right = self._remove_helper(val, root.right)
+
+        elif root.val > val:
+            # go Left
+            root.left = self._remove_helper(val, root.left)
+
+        else:
+            # found the node to removed
+            if root.right is None and root.left is None:
+                return None
+
+            elif root.left is None:
+                return root.right
+
+            elif root.right is None:
+                return root.left
+
+            # if both left and right are NOT None
+            else:
+
+                left_max = self.get_max_val(root.left)
+
+                root.val = left_max
+
+                root.left = self._remove_helper(left_max, root.left)
+
+        return root
+
+    def get_max_val(self, root):
+        """
+        Get the highest value in this tree
+
+        Args:
+            root(Node): root of this tree
+
+        Returns:
+            any: Highest value
+        """
+        if root is None:
+            return None
+
+        runner = root
+
+        # proceed to the Rightmost node
+        while runner.right is not None:
+            runner = runner.right
+
+        return runner.val
 
     def get(self, val) -> Node:
         """
