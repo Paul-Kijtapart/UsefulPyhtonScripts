@@ -1,4 +1,6 @@
 # libraries
+from collections import deque
+
 
 class Node:
     # 3 Node status
@@ -142,6 +144,67 @@ class Graph:
                 break
 
         return ordered_nodes
+
+    def has_path(self, from_node: Node, to_node: Node) -> bool:
+        """
+        Check if there exists path between from_node and to_node
+
+        Args:
+            from_node(Node):
+            to_node(Node):
+
+        Returns:
+            bool - True if there is a path. Otherwise, False
+        """
+        # reset status of the all nodes
+        self.reset_status()
+
+        # order of check matters
+        queue = deque()
+
+        if from_node.status == Node.UNVISITED:
+            queue.append(from_node)
+
+        while len(queue) > 0:
+
+            # visit
+            current_node = queue.popleft()
+
+            # if found
+            if current_node == to_node:
+                return True
+
+            # if Not found, keep on searching
+
+            if current_node.status == Node.UNVISITED:
+
+                # process the current node
+                current_node.status = Node.VISITING
+
+                # add child of the current node
+                for child in current_node.children:
+
+                    # add child that has not been processed
+                    if child.status == Node.UNVISITED:
+                        queue.append(child)
+
+            # update status of the current node (Prevent-loop)
+            current_node.status = Node.VISITED
+
+        return False
+
+    def get_shortest_path(self, from_node: Node, to_node: Node) -> list:
+        """
+        Return all nodes in the shortest path
+
+        Args:
+            from_node (Node):
+            to_node (Node):
+
+        Returns:
+            list - of nodes to traverse from the from_node to to_node
+        """
+        pass
 
     def has(self, val):
         """
