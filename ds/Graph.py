@@ -308,12 +308,26 @@ class Graph:
         return list(nodes)
 
     def _get_nodes_between_helper(self, root, to_node, current_path, all_paths):
-        """DFS"""
+        """
+        Traverse the root to fill in the all_paths
+        Update the given all paths as we travse the root and collect all possible paths between root and to_node
 
-        if root is None:
+        Args:
+            root(Node):
+            to_node(Node):
+            current_path(list):
+            all_paths(list):
+
+        Returns:
+            None
+        """
+
+        if root is None or root.status != Node.UNVISITED:
             return
 
         # visit
+
+        root.status = Node.VISITING
 
         # update current path
         current_path.append(root)
@@ -328,6 +342,8 @@ class Graph:
 
         # revert current_path
         current_path.pop()
+
+        root.status = Node.VISITED
 
     def _find_min_unvisited_node(self, nodes, min_cost_dict):
         """
