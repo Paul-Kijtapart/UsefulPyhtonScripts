@@ -1,5 +1,9 @@
 # libraries
-from collections import deque
+from collections import deque, namedtuple
+import math
+
+# Edge model
+Edge = namedtuple('Edge', ['node', 'cost'])
 
 
 class Node:
@@ -24,10 +28,10 @@ class Node:
     def __repr__(self):
         return str(self.val)
 
-    def add_child(self, child):
+    def add_child(self, child, cost=0):
         # update state
         self.children.append(child)
-        self.childMap[child.val] = child
+        self.childMap[child.val] = Edge(node=child, cost=cost)
 
         # update child
         child.increment_dependency()
@@ -65,7 +69,7 @@ class Graph:
         """Return the total number of node"""
         return len(self.nodes)
 
-    def add_edge(self, from_val, to_val):
+    def add_edge(self, from_val, to_val, cost=0):
         """
         Add edge from a node with from_val to a node with to_val
         if from_val/to_val does not exist, it will be created into a new node
@@ -82,7 +86,7 @@ class Graph:
         to_node = self.get_or_create(to_val)
 
         # link them
-        from_node.add_child(to_node)
+        from_node.add_child(to_node, cost)
 
     def get_or_create(self, val):
         """
@@ -206,7 +210,147 @@ class Graph:
         """
         pass
 
-    def has(self, val):
+    def get_cheapest_path(self, from_node: Node, to_node: Node) -> list:
+        """
+        Return the cheapest path from the from_node to the to_node
+        if there is NO path, return None
+
+        Args:
+            from_node(Node):
+            to_node(Node):
+
+        Returns:
+
+        """
+
+        if not self.has_path(from_node, to_node):
+            return None
+
+        self.reset_status()
+
+        # identify all nodes between from_node and to_node
+        nodes = self.get_nodes_between(from_node, to_node)
+
+        # include to_node as well
+        nodes.append(to_node)
+
+        # keep track of min_cost to this node so far
+        min_cost_dict = dict()
+
+        # the best parent that give min_cost to this node
+        parent_dict = dict()
+
+        # initialize
+        for node in nodes:
+            min_cost_dict[node.val] = math.inf
+            parent_dict[node.val] = None
+
+        # apply children of the from_node to update state first
+        for edge in from_node.childMap.values():
+            min_cost_dict[edge.node.val] = edge.cost
+            parent_dict[edge.node.val] = from_node
+
+        to_be_processed = self._find_min_unvisited_node(nodes, min_cost_dict)
+        while to_be_processed is not None:
+
+            to_be_processed.status = Node.VISITING
+
+            # update its children
+            for edge in to_be_processed.childMap.values():
+                current_cost = min_cost_dict[to_be_processed.val] + edge.cost
+
+                if current_cost < min_cost_dict[edge.node.val]:
+                    min_cost_dict[edge.node.val] = current_cost
+                    parent_dict[edge.node.val] = to_be_processed
+
+            # done with this node
+            to_be_processed.status = Node.VISITED
+
+            # find next min unvisited node
+            to_be_processed = self._find_min_unvisited_node(nodes, min_cost_dict)
+
+        # find path from the to_node
+        cheapest_path = []
+
+        current_parent = parent_dict[to_node.val]
+
+        cheapest_path.append(current_parent)
+
+        while current_parent != from_node:
+            current_parent = parent_dict[current_parent.val]
+            cheapest_path.append(current_parent)
+
+        return cheapest_path
+
+    def get_nodes_between(self, from_node: Node, to_node: Node) -> list:
+        """
+        Return list of nodes between from_node and to_node
+        None if there is no path
+
+        Args:
+            from_node(Node):
+            to_node(Node):
+
+        Returns:
+            list
+        """
+
+        all_paths = []
+
+        self._get_nodes_between_helper(from_node, to_node, [], all_paths)
+
+        nodes = set()
+        for path in all_paths:
+            for node in path:
+                if node != to_node and node != from_node and node not in nodes:
+                    nodes.add(node)
+
+        return list(nodes)
+
+    def _get_nodes_between_helper(self, root, to_node, current_path, all_paths):
+        """DFS"""
+
+        if root is None:
+            return
+
+        # visit
+
+        # update current path
+        current_path.append(root)
+
+        # if we reach destination
+        if root == to_node:
+            all_paths.append(current_path.copy())
+
+        # visit children
+        for child in root.children:
+            self._get_nodes_between_helper(child, to_node, current_path, all_paths)
+
+        # revert current_path
+        current_path.pop()
+
+    def _find_min_unvisited_node(self, nodes, min_cost_dict):
+        """
+        Find node with min cost and status UNVISITED
+
+        Args:
+            nodes:
+
+        Returns:
+            Node | None
+        """
+
+        min_node = None
+        min_cost = math.inf
+
+        for node in nodes:
+            if node.status == Node.UNVISITED and min_cost_dict[node.val] < min_cost:
+                min_node = node
+                min_cost = min_cost_dict[node.val]
+
+        return min_node
+
+    def has(self, val) -> bool:
         """
         Check if there exists a node with the given val
 
